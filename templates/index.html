@@ -1,0 +1,80 @@
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+
+<body>
+
+<!-- Website Title -->
+<div class="container">
+
+    <form action="{{ url_for('predict') }}" method="POST" >
+        <div style="width: 50%; margin: auto;">
+            <h3>Diabetes Predictor</h3>
+
+            <div class="form-group">
+                <label for="pregnanciesInput">Number of Pregnancies</label>
+                <input type="text" class="form-control" id="pregnanciesInput" name="pregnancies"
+                       placeholder="Number of Pregnancies eg. 0">
+            </div>
+
+            <div class="form-group">
+                <label for="glucoseInput">Glucose (mg/dL)</label>
+                <input type="text" class="form-control" id="glucoseInput" name="glucose"
+                       placeholder="Glucose (mg/dL) eg. 80">
+            </div>
+
+            <div class="form-group">
+                <label for="bloodpressureInput">Blood Pressure (mmHg)</label>
+                <input type="text" class="form-control" id="bloodpressureInput" name="bloodpressure"
+                       placeholder="Blood Pressure (mmHg) eg. 80">
+            </div>
+
+            <div class="form-group">
+                <label for="skinthicknessInput">Skin Thickness (mm)</label>
+                <input type="text" class="form-control" id="skinthicknessInput" name="skinthickness"
+                       placeholder="Skin Thickness (mm) eg. 20">
+            </div>
+
+            <div class="form-group">
+                <label for="insulinInput">Insulin Level (IU/mL)</label>
+                <input type="text" class="form-control" id="insulinInput" name="insulin"
+                       placeholder="Insulin Level (IU/mL) eg. 80">
+            </div>
+
+            <div class="form-group">
+                <label for="bmiInput">Body Mass Index (kg/m²)</label>
+                <input type="text" class="form-control" id="bmiInput" name="bmi"
+                       placeholder="Body Mass Index (kg/m²) eg. 23.1">
+            </div>
+
+            <div class="form-group">
+                <label for="dpfInput">Diabetes Pedigree Function</label>
+                <input type="text" class="form-control" id="dpfInput" name="dpf"
+                       placeholder="Diabetes Pedigree Function eg. 0.52">
+            </div>
+
+            <div class="form-group">
+                <label for="ageInput">Age (years)</label>
+                <input type="text" class="form-control" id="ageInput" name="age"
+                       placeholder="Age (years) eg. 34">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Predict</button>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#e7008a" fill-opacity="1"
+                  d="M0,128L17.1,160C34.3,192,69,256,103,245.3C137.1,235,171,149,206,149.3C240,149,274,235,309,261.3C342.9,288,377,256,411,208C445.7,160,480,96,514,101.3C548.6,107,583,181,617,202.7C651.4,224,686,192,720,197.3C754.3,203,789,245,823,240C857.1,235,891,181,926,186.7C960,192,994,256,1029,245.3C1062.9,235,1097,149,1131,122.7C1165.7,96,1200,128,1234,154.7C1268.6,181,1303,203,1337,218.7C1371.4,235,1406,245,1423,250.7L1440,256L1440,320L1422.9,320C1405.7,320,1371,320,1337,320C1302.9,320,1269,320,1234,320C1200,320,1166,320,1131,320C1097.1,320,1063,320,1029,320C994.3,320,960,320,926,320C891.4,320,857,320,823,320C788.6,320,754,320,720,320C685.7,320,651,320,617,320C582.9,320,549,320,514,320C480,320,446,320,411,320C377.1,320,343,320,309,320C274.3,320,240,320,206,320C171.4,320,137,320,103,320C68.6,320,34,320,17,320L0,320Z"></path>
+        </svg>
+    </form>
+</div>
+
+
+</body>
+</html>

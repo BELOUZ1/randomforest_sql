@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        
+       
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+    </head>
+
+    <body>
+
+        <!-- Website Title -->
+    	<div class="container">
+            <h2> Diabetes Predictor</h2>
+            
+    	</div>
+       
+     <form action="{{ url_for('submite') }}" method="POST">
+          
+            <input class="form-input" type="text" name="nom" placeholder="nom" ><br>
+            <input class="form-input" type="text" name="prenom" placeholder="prénom" ><br>
+                <input class="form-input" type="text" name="nomutil" placeholder="nomutilisateur" id = "a"><br>
+                <input class="form-input" type="text" name="motpasse" placeholder="mot de passe" id = "b"><br>
+                <input class="form-input" type="text" name="age" placeholder="age"><br>
+                <input type="submit" class="my-cta-button" value="submite">
+            </form>
+    </body>
+</html>
