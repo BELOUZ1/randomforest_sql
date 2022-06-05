@@ -47,7 +47,7 @@ let income_category_data = JSON.parse({{ income_category | tojson}})
  let income_vs_category_chart = new Chart(income_vs_category, {
             type: 'bar',
             data: {
-                labels: ['Users', 'User Pos', 'User Neg'],
+                labels: ['Users', 'Positive User', 'Negative User'],
                 datasets: [{
                     label: "User Statistics",
                     data: income_category_data,
