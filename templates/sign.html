@@ -1,30 +1,67 @@
 <!DOCTYPE html>
 
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        
-       
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    </head>
+</head>
 
-    <body>
+<body>
 
-        <!-- Website Title -->
-    	<div class="container">
-            <h2> Diabetes Predictor</h2>
-            
-    	</div>
-       
-     <form action="{{ url_for('submite') }}" method="POST">
-          
-            <input class="form-input" type="text" name="nom" placeholder="nom" ><br>
-            <input class="form-input" type="text" name="prenom" placeholder="prénom" ><br>
-                <input class="form-input" type="text" name="nomutil" placeholder="nomutilisateur" id = "a"><br>
-                <input class="form-input" type="text" name="motpasse" placeholder="mot de passe" id = "b"><br>
-                <input class="form-input" type="text" name="age" placeholder="age"><br>
-                <input type="submit" class="my-cta-button" value="submite">
-            </form>
-    </body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Diabetes Predictor</a>
+        </div>
+        <div class="nav navbar-nav" style="float: right;">
+            <li><a href="/">Sign In</a></li>
+        </div>
+
+    </div>
+</nav>
+<div class="container">
+    <form action="{{ url_for('submite') }}" method="POST">
+
+        <div style="width: 50%; margin: auto;">
+            <div class="form-group">
+                <label for="nomInput">Family Name</label>
+                <input type="text" class="form-control" id="nomInput" name="familyname"
+                       placeholder="Family Name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="prenomInput">First Name</label>
+                <input type="text" class="form-control" id="prenomInput" name="firstname"
+                       placeholder="First Name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="usernameInput">User Name</label>
+                <input type="email" class="form-control" id="usernameInput" name="nomutil"
+                       placeholder="User Name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="passwordInput">Password</label>
+                <input type="text" class="form-control" id="passwordInput" name="motpasse"
+                       placeholder="Password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ageInput">Age</label>
+                <input type="number" class="form-control" id="ageInput" name="age"
+                       placeholder="Age" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </div>
+    </form>
+
+</div>
+
+
+</body>
 </html>

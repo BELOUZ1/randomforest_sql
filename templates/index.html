@@ -4,66 +4,78 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-
 </head>
 
 <body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Diabetes Predictor</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/predict">Prediction</a></li>
+            <li><a href="/history">History</a></li>
+            <li><a href="/statistical">Statistical</a></li>
+        </ul>
+        <div class="nav navbar-nav" style="float: right;">
+            <li class="navbar-brand">{{ message }}</li>
+            <li><a href="/logout">LogOut</a></li>
+        </div>
 
-<!-- Website Title -->
+    </div>
+</nav>
 <div class="container">
 
-    <form action="{{ url_for('predict') }}" method="POST" >
+    <form action="{{ url_for('predict') }}" method="POST">
         <div style="width: 50%; margin: auto;">
             <h3>Diabetes Predictor</h3>
 
             <div class="form-group">
                 <label for="pregnanciesInput">Number of Pregnancies</label>
-                <input type="text" class="form-control" id="pregnanciesInput" name="pregnancies"
-                       placeholder="Number of Pregnancies eg. 0">
+                <input type="number" class="form-control" id="pregnanciesInput" name="pregnancies"
+                       placeholder="Number of Pregnancies eg. 0" required>
             </div>
 
             <div class="form-group">
                 <label for="glucoseInput">Glucose (mg/dL)</label>
-                <input type="text" class="form-control" id="glucoseInput" name="glucose"
-                       placeholder="Glucose (mg/dL) eg. 80">
+                <input type="number" class="form-control" id="glucoseInput" name="glucose"
+                       placeholder="Glucose (mg/dL) eg. 80" required>
             </div>
 
             <div class="form-group">
                 <label for="bloodpressureInput">Blood Pressure (mmHg)</label>
-                <input type="text" class="form-control" id="bloodpressureInput" name="bloodpressure"
-                       placeholder="Blood Pressure (mmHg) eg. 80">
+                <input type="number" class="form-control" id="bloodpressureInput" name="bloodpressure"
+                       placeholder="Blood Pressure (mmHg) eg. 80" required>
             </div>
 
             <div class="form-group">
                 <label for="skinthicknessInput">Skin Thickness (mm)</label>
-                <input type="text" class="form-control" id="skinthicknessInput" name="skinthickness"
-                       placeholder="Skin Thickness (mm) eg. 20">
+                <input type="number" class="form-control" id="skinthicknessInput" name="skinthickness"
+                       placeholder="Skin Thickness (mm) eg. 20" required>
             </div>
 
             <div class="form-group">
                 <label for="insulinInput">Insulin Level (IU/mL)</label>
-                <input type="text" class="form-control" id="insulinInput" name="insulin"
-                       placeholder="Insulin Level (IU/mL) eg. 80">
+                <input type="number" class="form-control" id="insulinInput" name="insulin"
+                       placeholder="Insulin Level (IU/mL) eg. 80" required>
             </div>
 
             <div class="form-group">
                 <label for="bmiInput">Body Mass Index (kg/m²)</label>
-                <input type="text" class="form-control" id="bmiInput" name="bmi"
-                       placeholder="Body Mass Index (kg/m²) eg. 23.1">
+                <input type="number" class="form-control" id="bmiInput" name="bmi"
+                       placeholder="Body Mass Index (kg/m²) eg. 23.1" required step=0.1>
             </div>
 
             <div class="form-group">
                 <label for="dpfInput">Diabetes Pedigree Function</label>
-                <input type="text" class="form-control" id="dpfInput" name="dpf"
-                       placeholder="Diabetes Pedigree Function eg. 0.52">
+                <input type="number" class="form-control" id="dpfInput" name="dpf"
+                       placeholder="Diabetes Pedigree Function eg. 0.52" required step=0.01>
             </div>
 
             <div class="form-group">
                 <label for="ageInput">Age (years)</label>
-                <input type="text" class="form-control" id="ageInput" name="age"
-                       placeholder="Age (years) eg. 34">
+                <input type="number" class="form-control" id="ageInput" name="age"
+                       placeholder="Age (years) eg. 34" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Predict</button>

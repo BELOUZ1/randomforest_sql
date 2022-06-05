@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Statis</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
+            integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+{% block content %}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Diabetes Predictor</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/predict">Prediction</a></li>
+            <li><a href="/history">History</a></li>
+            <li class="active"><a href="/statistical">Statistical</a></li>
+        </ul>
+        <div class="nav navbar-nav" style="float: right;">
+            <li class="navbar-brand">{{ message }}</li>
+            <li><a href="/logout">LogOut</a></li>
+        </div>
+
+    </div>
+</nav>
+<div class="container">
+    <div class="col-md-6" style="display: block;margin-left: auto;margin-right: auto;">
+        <div class="card card-style mb-2">
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="income_vs_category"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block javascript %}
+<script>
+let income_category_data = JSON.parse({{ income_category | tojson}})
+ let income_vs_category_chart = new Chart(income_vs_category, {
+            type: 'bar',
+            data: {
+                labels: ['Users', 'User Pos', 'User Neg'],
+                datasets: [{
+                    label: "User Statistics",
+                    data: income_category_data,
+            backgroundColor: ['#5DA5DA ', '#FAA43A', '#60BD68'],
+            borderWidth: 1,
+            hoverBorderColor: "black",
+            hoverBorderWidth: 2,
+            hoverBackgroundColor: 'rgba(154, 245, 140)',
+            pointHoverRadius: 5
+        }],
+            },
+        options: {
+                title: {
+                    display: true,
+                        text: "Income Categories",
+                            fontSize: 20,
+            },
+                legend: {
+                    position: "right",
+                        labels: {
+                        fontColor: "gray"
+                    },
+                    display: true,
+            },
+
+                elements: {
+                    hitRadius: 3,
+            }
+            }
+        })
+
+
+</script>
+{% endblock%}
+{% endblock%}
+
+</body>
+</html>

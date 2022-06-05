@@ -1,6 +1,6 @@
 import sqlite3
 from datetime import date
-
+import json
 from flask import Flask, request, render_template, session
 
 app = Flask(__name__)
@@ -89,9 +89,12 @@ def get_all_history():
     # return render_template('history.html', result)
 
     dbHistory.close()
-    return render_template("show_reddit.html", data=reddit_data)
+    return render_template("history.html", data=reddit_data)
 
-
+@app.route('/statistical', methods=['GET'])
+def show_stat():
+    income_category = [40, 24, 16]
+    return render_template('statis.html', income_category=json.dumps(income_category))
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -21,13 +21,15 @@ classifier = pickle.load(open(filename, 'rb'))
 conn = sqlite3.connect("res.sqlite")
 cursor = conn.cursor()
 
-sql_query = """ create table if not exists historique(
-user text not null,
-secret text not null,
-glucose text not null,
-insuline text not null,
-pred float
+sql_query = """ create table if not exists user(
+id INTEGER PRIMARY KEY,
+nom TEXT,
+prenom TEXT,
+username TEXT UNIQUE,
+password TEXT,
+age INTEGER
 )"""
+
 cursor.execute(sql_query)
 
 sql_query = """ create table if not exists info(
@@ -86,7 +88,7 @@ def home():
     return render_template('log.html')
 
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['POST', 'GET'])
 def predict():
     if request.method == 'POST':
         preg = int(request.form['pregnancies'])
@@ -104,24 +106,37 @@ def predict():
         username = session['username']
 
         add_to_history(username, "", preg, glucose, bp, st, insulin, bmi, dpf, age)
-    return render_template('result.html', prediction=my_prediction)
+        return render_template('result.html', prediction=my_prediction)
+    else:
+        nom = session.get('nom')
+        prenom = session.get('prenom')
+        if nom is None:
+            return redirect('/')
+        return render_template('index.html', message= prenom + " " + nom)
 
 
-@app.route('/sign_up', methods=['POST'])
+@app.route('/sign_up', methods=['GET'])
 def sign_up():
-    if request.method == 'POST':
-        return render_template('sign.html')
+    return render_template('sign.html')
+
 
 
 @app.route('/submite', methods=['POST'])
 def submite():
     dbSubmite = get_connection()
     submiteCursor = dbSubmite.cursor()
-    submiteCursor.execute("INSERT INTO user (user, secret) VALUES (?,?)",
-                          (request.form['nomutil'], request.form['motpasse']))
+
+    nom = request.form['familyname']
+    prenom = request.form['firstname']
+    username = request.form['nomutil']
+    password = request.form['motpasse']
+    age = request.form['age']
+
+    submiteCursor.execute("INSERT INTO user (nom, prenom, username, password, age) VALUES (?, ?, ?, ?, ?)",
+                          (nom, prenom, username, password, age))
     dbSubmite.commit()
     dbSubmite.close()
-    return render_template('index.html')
+    return redirect('/')
 
 
 @app.route('/history', methods=['GET'])
@@ -132,7 +147,7 @@ def get_all_history():
 
     username = session['username']
 
-    result = historyCursor.execute("SELECT * FROM historique where username = ?", username)
+    result = historyCursor.execute("SELECT * FROM historique where username = ?", (username,))
 
     for row in result:
         element = {"id": row[0], "pregnancies": row[3],
@@ -143,7 +158,9 @@ def get_all_history():
     # return render_template('history.html', result)
 
     dbHistory.close()
-    return render_template("show_reddit.html", data=reddit_data)
+    nom = session.get('nom')
+    prenom = session.get('prenom')
+    return render_template("history.html", data=reddit_data, message= prenom + " " + nom)
 
 
 @app.route('/se_connecter', methods=['POST'])
@@ -154,16 +171,49 @@ def se_connecter():
     username = request.form['nomutil1']
     motdepasse = request.form['motpasse1']
 
-    connecterCursor.execute("SELECT * FROM user WHERE user=? AND secret=?",
+    connecterCursor.execute("SELECT * FROM user WHERE username=? AND password=?",
                             (username, motdepasse))
     result = connecterCursor.fetchall()
     dbConnecter.close()
     if len(result) == 0:
         return 'username / password not recognised'
     else:
-        session['username'] = username
-        return render_template('index.html')
+        for element in result:
+            session['nom'] = element[1]
+            session['prenom'] = element[2]
+            session['username'] = element[3]
+        return redirect('/predict')
 
+
+@app.route('/logout', methods=['GET'])
+def log_out():
+    session.pop('username', default=None)
+    session.pop('prenom', default=None)
+    session.pop('nom', default=None)
+    return redirect('/')
+
+@app.route('/statistical', methods=['GET'])
+def show_stat():
+    """
+    cpt = 0
+    cpt_pos = 0
+    cpt_neg = 0
+    dbHistory = get_connection()
+    staticticalCursor = dbHistory.cursor()
+    res = staticticalCursor.execute("SELECT * FROM historique")
+    for row in res:
+        cpt = cpt + 1
+        if row[12] == 1:
+            cpt_pos = cpt_pos + 1
+        else:
+            cpt_neg = cpt_neg + 1
+
+    names = ['user', 'user positif', 'user negatif']  # nom des barres
+
+    values = [cpt, cpt_pos, cpt_neg]
+"""
+    values = [40, 24, 16]
+    return render_template('statis.html', income_category=json.dumps(values))
 
 if __name__ == '__main__':
     app.run(debug=True)

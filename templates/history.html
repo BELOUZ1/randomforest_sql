@@ -6,24 +6,38 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Diabetes Predictor</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/predict">Prediction</a></li>
+            <li class="active"><a href="/history">History</a></li>
+            <li><a href="/statistical">Statistical</a></li>
+        </ul>
+        <div class="nav navbar-nav" style="float: right;">
+            <li class="navbar-brand">{{ message }}</li>
+            <li><a href="/logout">LogOut</a></li>
+        </div>
 
+    </div>
+</nav>
 <div class="container">
     <table class="table">
         <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Pregnancies</th>
-            <th scope="col">Glucose</th>
-            <th scope="col">Blood Pressure</th>
-            <th scope="col">Skin Thickness</th>
-            <th scope="col">Insulin</th>
-            <th scope="col">BMI</th>
+            <th scope="col">Glucose (mg/dL)</th>
+            <th scope="col">Blood Pressure (mmHg)</th>
+            <th scope="col">Skin Thickness (mm)</th>
+            <th scope="col">Insulin (IU/mL)</th>
+            <th scope="col">BMI (kg/m²)</th>
             <th scope="col">DPF</th>
-            <th scope="col">Age</th>
+            <th scope="col">Age (years)</th>
         </tr>
         </thead>
         <tbody>
